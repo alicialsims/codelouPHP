@@ -8,7 +8,7 @@
   // try to connect to database
  try {
        $database_connection = new PDO("mysql:dbname=". $database .";host=". $host .";port=3306", $user, $pass);
-       echo "You are connected to your database <br/>";
+      // echo "You are connected to your database <br/>";
 
       //   $results = $database_connection->query("SELECT * FROM wine_t");
          

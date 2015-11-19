@@ -1,0 +1,24 @@
+/* ALL screens ALL the time*/
+
+li {
+	list-style-type: none;
+}
+
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+    /* portrait phones */
+}
+
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+    /* landscape phones */
+}
+
+
+@media only screen and (min-width: 768px) {
+    /* tablets and desktop */
+}
+
+
+@media only screen and (min-width: 1176px) {
+	/* large screens */
+
+}
