@@ -7,17 +7,12 @@ require_once('database.php');
 // WORKING CODE
       $results = $database_connection->query("SELECT * FROM wine_t");
        $wines = $results->fetchAll(PDO::FETCH_ASSOC);
-
-       $rating = $database_connection->query("SELECT wine_id, AVG(rating_t.rating) 
+      
+      $query = $database_connection->query("SELECT wine_id, AVG(rating_t.rating) AS rating
         FROM rating_t GROUP BY wine_id");
-
-      var_dump(mysql_fetch_array($rating));
-
-       //create an array of wine ratings so you can pull it as $ratings[wine_id]
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
-//var_dump($db);
-//die();
 
 ?>
 
@@ -42,8 +37,18 @@ require_once('database.php');
         <a href="wines.php?id='.$wine["id"].'">'.$wine["name"].'</a>
         </li>';
 
+        $currentRating = 0;
+
+        for ($i = 0; $i < sizeof($result); $i++) {
+          $rating = $result[$i];
+          if ($rating["wine_id"] == $wine["id"]) {
+            $currentRating = $rating["rating"];
+            break;
+          }
+        }
+
         //if(isset($wine['rating'])){
-          echo '<div class="rating"> Rating: '.$rating["wine_id"].'/5 </div>';
+          echo '<div class="rating"> Rating: '. round($currentRating) .'/5 </div>';
 
         //} else {
           //nothing

@@ -40,6 +40,12 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
 //var_dump($db);
 //die();
 
+
+  $query = $database_connection->query("SELECT wine_id, AVG(rating_t.rating) AS rating
+        FROM rating_t GROUP BY wine_id");
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <html lang="en">
@@ -141,6 +147,23 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
     ?>
      <!-- rating system -->
      <div class="rateme"> 
+     <?php 
+
+      $currentRating = 0;
+
+        for ($i = 0; $i < sizeof($result); $i++) {
+          $rating = $result[$i];
+          if ($rating["wine_id"] == $wine["id"]) {
+            $currentRating = $rating["rating"];
+            break;
+          }
+        }
+
+         echo '<div class="rating"> Rating: '. round($currentRating) .'/5 </div>';
+      ?>
+
+
+
       Rate this wine:
       <?php foreach(range(1, 5) as $rating)
         echo '<a href="rate.php?wine='.$wine["id"].'&rating='
