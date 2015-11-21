@@ -19,7 +19,7 @@ $results = $database_connection->prepare('SELECT * FROM wine_t WHERE id = ?');
 //use prepare instead of query to stop sql injection
 
 $results->bindParam(1, $id);
-//binding question mark place holder from sql command above to film_id
+//binding question mark place holder from sql command above to wine_id
 
 $results->execute();
 //execute prepared statement
@@ -53,7 +53,17 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
 <head>
 
   <meta charset="UTF-8">
-  <title>Wine & Beer | Louisville</title>
+  <title><?php
+          if(isset($wine)){
+          //will only show if not a null
+          echo $wine['name']; 
+          }
+          else {
+          echo 'Sorry, no wine was found';
+          }
+
+         // print_r($wine);
+      ?> | Lou's Cellar</title>
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -61,6 +71,9 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
 <body id="home">
 
   <h1>Louisville Wines</h1>
+
+
+<!-- START -->
 
   <h2><?php
           if(isset($wine)){
@@ -180,6 +193,7 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
   </li>
   </ul>
 
+<!-- END -->
 </body>
 
 </html>
