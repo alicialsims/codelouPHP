@@ -2,7 +2,8 @@
 
 
 <?php
-require_once('database.php');
+require_once('inc/database.php');
+$section = "individualwine";
 
 // WORKING CODE
       $results = $database_connection->query("SELECT * FROM wine_t");
@@ -51,6 +52,8 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="http://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+  <link rel="stylesheet" href="css/style.css" />
 
   <meta charset="UTF-8">
   <title><?php
@@ -70,10 +73,32 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
 
 <body id="home">
 
-  <h1>Louisville Wines</h1>
+  <!-- NAVIGATION BAR -->
+<div class="top-bar">
+<div class="top-bar-left">
+<ul class="menu">
+<li class="menu-text"><a href="index.php">Lou's Cellar</a></li>
+</ul>
+</div>
+<div class="top-bar-right">
+<ul class="menu">
+<li class="allwines <?php if ($section == "allwines") { echo "on"; } ?>"><a href="allwines.php">Wines</a></li>
+<li class="allbeers <?php if ($section == "allbeers") { echo "on"; } ?> "><a href="allbeers.php">Beers</a></li>
+<li class="contact <?php if ($section == "contact") { echo "on"; } ?> "><a href="contact.php">Contact</a></li>
+</ul>
+</div>
+</div>
+
+<!-- END NAVIGATION BAR -->
+
+
+  
 
 
 <!-- START -->
+<div class="winewrapper">
+
+  <p class="text-right"><a href="allwines.php">Go Back To List of Wines</a></p>
 
   <h2><?php
           if(isset($wine)){
@@ -193,9 +218,12 @@ $wine = $results->fetch(PDO::FETCH_ASSOC);
   </li>
   </ul>
 
+
+  <p class="text-right"><a href="allwines.php">Go Back To List of Wines</a></p>
+
+</div>
 <!-- END -->
-</body>
-
-</html>
-
+<?php 
+include('inc/footer.php');
+?>
 
